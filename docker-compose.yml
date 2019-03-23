@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+  nginx:
+    container_name: sample_nginx
+    image: sample_nginx
+    build:
+      context: nginx
+      args:
+        - PHP_UPSTREAM_CONTAINER=php-fpm
+        - PHP_UPSTREAM_PORT=9000
+    volumes:
+      - ./logs/nginx/:/var/log/nginx
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/ssl/:/etc/nginx/ssl
+      - ./app:/var/www:cached
+    ports:
+      - "80:80"
+    networks:
+      - default

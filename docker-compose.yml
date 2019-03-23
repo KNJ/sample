@@ -18,3 +18,15 @@ services:
       - "80:80"
     networks:
       - default
+  php-fpm:
+    container_name: sample_php-fpm
+    image: sample_php-fpm
+    build:
+      context: php-fpm
+    volumes:
+      - ./php-fpm/php.ini:/usr/local/etc/php/php.ini
+      - ./app:/var/www:cached
+    expose:
+      - "9000"
+    networks:
+      - default
